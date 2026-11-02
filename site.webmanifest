@@ -1,0 +1,23 @@
+{
+  "name": "麻雀点数計算ツール",
+  "short_name": "麻雀点数",
+  "description": "四麻・三麻対応の無料麻雀点数計算ツール",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "lang": "ja",
+  "theme_color": "#16a34a",
+  "background_color": "#f0fdf4",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

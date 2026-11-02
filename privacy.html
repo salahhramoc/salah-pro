@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プライバシーポリシー | 麻雀点数計算ツール</title>
+    <meta name="description" content="麻雀点数計算ツールのプライバシーポリシー。Googleアドセンス等の広告配信やアクセス解析ツールにおけるCookie（クッキー）の利用について記載しています。">
+    <meta name="keywords" content="プライバシーポリシー,個人情報保護,Cookie,Googleアドセンス">
+    <link rel="canonical" href="https://mahjong-score.online/privacy.html">
+    <link rel="icon" href="favicon.ico" sizes="32x32">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#16a34a">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mahjong: { 50: '#f0fdf4', 600: '#16a34a', 700: '#15803d' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>[x-cloak]{display:none !important}</style>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen flex flex-col justify-between" x-data="{ mobileMenuOpen: false }">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <span class="text-2xl">🀄</span>
+                <div>
+                    <p class="text-lg font-bold text-gray-900 leading-tight">麻雀点数計算ツール</p>
+                    <p class="text-xs text-gray-500">簡単・高精度シミュレーター</p>
+                </div>
+            </a>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="index.html" class="hover:text-mahjong-600 transition">点数計算機</a>
+                <a href="guide.html" class="hover:text-mahjong-600 transition">初心者向けガイド</a>
+                <a href="fu-guide.html" class="hover:text-mahjong-600 transition">符計算のコツ</a>
+                <a href="sanma-rules.html" class="hover:text-mahjong-600 transition">三麻ルール解説</a>
+            </nav>
+            <button type="button" @click="mobileMenuOpen = !mobileMenuOpen" :aria-expanded="mobileMenuOpen" aria-label="メニューを開く" class="md:hidden p-2 text-gray-600 hover:text-gray-900">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+        <div x-cloak x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false" class="md:hidden bg-white border-b border-gray-200 px-4 pt-2 pb-4 space-y-2">
+            <a href="index.html" class="block py-1 text-gray-700">点数計算機</a>
+            <a href="guide.html" class="block py-1 text-gray-700">初心者向けガイド</a>
+            <a href="fu-guide.html" class="block py-1 text-gray-700">符計算のコツ</a>
+            <a href="sanma-rules.html" class="block py-1 text-gray-700">三麻ルール解説</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-6 space-y-6">
+        
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 md:p-8 space-y-6">
+            <div class="flex items-center space-x-2 text-xs text-gray-500">
+                <a href="index.html" class="hover:text-mahjong-600">ホーム</a>
+                <span>/</span>
+                <span class="text-mahjong-600 font-bold" aria-current="page">プライバシーポリシー</span>
+            </div>
+
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-900 leading-tight">プライバシーポリシー</h1>
+            
+            <div class="space-y-4 text-gray-700 leading-relaxed text-sm md:text-base">
+                <p>「麻雀点数計算ツール」（以下、当サイト）では、ユーザーの皆様のプライバシー保護を重要視し、個人情報の適切な取扱いにつとめます。</p>
+                <p class="text-xs text-gray-500">最終更新日：2026年11月2日</p>
+
+                <h2 class="text-xl font-bold text-gray-900 pt-3 border-t">1. 点数計算機への入力データについて</h2>
+                <p>当サイトの点数計算機に入力された数値や条件（人数、親子、翻数、符数、本場など）は、すべてユーザーの皆様のブラウザ（JavaScript環境）内のみで処理されます。これらのデータが当サイトのサーバーへ送信・蓄積されることはありません。</p>
+
+                <h2 class="text-xl font-bold text-gray-900 pt-3 border-t">2. お問い合わせについて</h2>
+                <p>お問い合わせは、当サイトに掲載のメールアドレスへメールを送信していただく方法で受け付けています。メールに記載されたお名前・メールアドレス・お問い合わせ内容は、ご返信および不具合対応の目的にのみ使用し、法令に基づく場合を除き、ご本人の同意なく第三者に提供することはありません。</p>
+
+                <h2 class="text-xl font-bold text-gray-900 pt-3 border-t">3. 広告の配信について</h2>
+                <p>当サイトでは、第三者配信の広告サービス（Googleアドセンスなど）を利用する場合があります。このような広告配信事業者は、ユーザーの興味に応じた商品やサービスの広告を表示するため、当サイトや他サイトへのアクセスに関する情報『Cookie』(氏名、住所、メール アドレス、電話番号は含まれません) を使用することがあります。</p>
+                <p>Googleの広告におけるCookieの使用に関する詳細は<a href="https://policies.google.com/technologies/ads?hl=ja" class="text-mahjong-600 underline" target="_blank" rel="noopener">Googleのポリシーと規約ページ</a>をご覧ください。パーソナライズ広告は<a href="https://adssettings.google.com/" class="text-mahjong-600 underline" target="_blank" rel="noopener">広告設定</a>で無効にできます。また、<a href="https://www.aboutads.info/choices/" class="text-mahjong-600 underline" target="_blank" rel="noopener">aboutads.info</a>から第三者配信事業者のCookieによるパーソナライズ広告を無効にすることもできます。</p>
+
+                <h2 class="text-xl font-bold text-gray-900 pt-3 border-t">4. アクセス解析ツールについて</h2>
+                <p>当サイトでは、サイトの利用状況を把握するためにアクセス解析ツールを利用する場合があります。トラフィックデータは匿名で収集され、個人を特定するものではありません。Cookieを無効にすることで収集を拒否できますので、お使いのブラウザの設定をご確認ください。</p>
+
+                <h2 class="text-xl font-bold text-gray-900 pt-3 border-t">5. 個人情報の第三者提供について</h2>
+                <p>当サイトは、法令に基づく場合を除き、取得した個人情報をご本人の同意なく第三者に提供することはありません。</p>
+
+                <h2 class="text-xl font-bold text-gray-900 pt-3 border-t">6. 免責事項</h2>
+                <p>当サイトのシミュレーターで算出される計算結果は正確性を期しておりますが、その内容を保証するものではありません。万が一不具合や計算上の誤差が生じた場合でも、これに起因する損害について当サイト管理者は責任を負いかねます。実際の対局では、その場のルールに従ってください。</p>
+
+                <h2 class="text-xl font-bold text-gray-900 pt-3 border-t">7. プライバシーポリシーの変更について</h2>
+                <p>当サイトは、法令の変更やサービス内容の変更に応じて、本ポリシーを予告なく改定することがあります。改定後の内容は、本ページに掲載した時点から効力を生じます。</p>
+
+                <h2 class="text-xl font-bold text-gray-900 pt-3 border-t">8. お問い合わせ先</h2>
+                <p>本ポリシーに関するお問い合わせは、<a href="contact.html" class="text-mahjong-600 underline">お問い合わせページ</a>に記載のメールアドレス（support@mahjong-score.com）までご連絡ください。</p>
+            </div>
+
+            <div class="pt-6 border-t flex justify-center">
+                <a href="index.html" class="bg-mahjong-600 hover:bg-mahjong-700 text-white font-bold px-8 py-3 rounded-xl shadow transition text-base">
+                    🧮 計算機に戻る
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-12 py-8 text-center text-xs text-gray-500 space-y-3">
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 font-medium">
+            <a href="index.html" class="hover:text-mahjong-600">点数計算機</a>
+            <a href="guide.html" class="hover:text-mahjong-600">初心者ガイド</a>
+            <a href="fu-guide.html" class="hover:text-mahjong-600">符計算のコツ</a>
+            <a href="sanma-rules.html" class="hover:text-mahjong-600">三麻ルール解説</a>
+            <a href="about.html" class="hover:text-mahjong-600">当サイトについて</a>
+            <a href="privacy.html" class="hover:text-mahjong-600">プライバシーポリシー</a>
+            <a href="contact.html" class="hover:text-mahjong-600">お問い合わせ</a>
+        </div>
+        <p>© 2026 麻雀点数計算ツール All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

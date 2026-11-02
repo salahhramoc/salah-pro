@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>麻雀点数計算機｜四麻・三麻対応の無料ツール</title>
+    <meta name="description" content="麻雀の点数計算を誰でも一瞬で自動計算できる無料ツール。4人打ち（四麻）・3人打ち（三麻）のロン・ツモ対応。役満や符計算の分かりやすい解説記事も掲載。">
+    <meta name="keywords" content="麻雀点数計算,麻雀計算機,符計算,翻数,三麻,四麻,自動計算">
+    <link rel="canonical" href="https://mahjong-score.online/">
+    <!-- Open Graph Tags for Social & SEO -->
+    <meta property="og:title" content="麻雀点数計算機｜四麻・三麻対応の無料ツール">
+    <meta property="og:description" content="麻雀の点数計算を誰でも一瞬で自動計算できる無料ツール。4人打ち・3人打ち対応。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mahjong-score.online/">
+    <link rel="icon" href="favicon.ico" sizes="32x32">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#16a34a">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mahjong: { 50: '#f0fdf4', 600: '#16a34a', 700: '#15803d' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>[x-cloak]{display:none !important}</style>
+    <!-- Alpine.js for interactivity -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "麻雀点数計算機",
+      "url": "https://mahjong-score.online/",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "inLanguage": "ja",
+      "description": "翻数・符数を選ぶだけで麻雀の点数を自動計算する無料ツール。四人打ち・三人打ち（ツモ損あり／なし）、本場・供託に対応。",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+    }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen flex flex-col justify-between" x-data="mahjongApp()">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <span class="text-2xl">🀄</span>
+                <div>
+                    <p class="text-lg font-bold text-gray-900 leading-tight">麻雀点数計算ツール</p>
+                    <p class="text-xs text-gray-500">簡単・高精度シミュレーター</p>
+                </div>
+            </a>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="index.html" aria-current="page" class="text-mahjong-600 font-bold">点数計算機</a>
+                <a href="guide.html" class="hover:text-mahjong-600 transition">初心者向けガイド</a>
+                <a href="fu-guide.html" class="hover:text-mahjong-600 transition">符計算のコツ</a>
+                <a href="sanma-rules.html" class="hover:text-mahjong-600 transition">三麻ルール解説</a>
+            </nav>
+            <!-- Mobile Menu Button -->
+            <button type="button" @click="mobileMenuOpen = !mobileMenuOpen" :aria-expanded="mobileMenuOpen" aria-label="メニューを開く" class="md:hidden p-2 text-gray-600 hover:text-gray-900">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+        <!-- Mobile Dropdown -->
+        <div x-cloak x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false" class="md:hidden bg-white border-b border-gray-200 px-4 pt-2 pb-4 space-y-2">
+            <a href="index.html" class="block py-1 text-mahjong-600 font-bold">点数計算機</a>
+            <a href="guide.html" class="block py-1 text-gray-700">初心者向けガイド</a>
+            <a href="fu-guide.html" class="block py-1 text-gray-700">符計算のコツ</a>
+            <a href="sanma-rules.html" class="block py-1 text-gray-700">三麻ルール解説</a>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-6 space-y-6">
+        
+        <!-- Quick Action Notification/Tip -->
+        <div class="bg-mahjong-50 border border-mahjong-600/20 rounded-xl p-4 flex items-start space-x-3 text-sm text-mahjong-700">
+            <span class="text-lg">💡</span>
+            <div>
+                <span class="font-bold">使い方：</span>プレイ人数、アガり方、翻数、符数を選択するだけで、親・子の支払額や得点が瞬時に算出されます！
+            </div>
+        </div>
+
+        <!-- Calculator Card -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-5 md:p-8 space-y-6">
+            <h1 class="text-xl font-bold text-gray-900 flex items-center gap-2">
+                <span>🧮</span> 麻雀点数 自動計算パネル
+            </h1>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">対戦人数</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <template x-for="o in [[4,'4人打ち (四麻)'],[3,'3人打ち (三麻)']]" :key="o[0]">
+                            <button type="button" @click="playerCount = o[0]" :aria-pressed="playerCount === o[0]" :class="cls(playerCount === o[0])" class="py-2.5 rounded-xl font-bold transition text-sm" x-text="o[1]"></button>
+                        </template>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">あなたの立場</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <template x-for="o in [[true,'親 (東家)'],[false,'子']]" :key="o[0]">
+                            <button type="button" @click="isOya = o[0]" :aria-pressed="isOya === o[0]" :class="cls(isOya === o[0])" class="py-2.5 rounded-xl font-bold transition text-sm" x-text="o[1]"></button>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">アガり方</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <template x-for="o in [['ron','ロン'],['tsumo','ツモ']]" :key="o[0]">
+                            <button type="button" @click="winType = o[0]" :aria-pressed="winType === o[0]" :class="cls(winType === o[0])" class="py-2.5 rounded-xl font-bold transition text-sm" x-text="o[1]"></button>
+                        </template>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">役の種別</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <template x-for="o in [[0,'通常役・数え役満'],[1,'役満'],[2,'ダブル役満']]" :key="o[0]">
+                            <button type="button" @click="yakuman = o[0]" :aria-pressed="yakuman === o[0]" :class="cls(yakuman === o[0])" class="py-2.5 rounded-xl font-bold transition text-sm" x-text="o[1]"></button>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3P tsumo rule -->
+            <div x-cloak x-show="playerCount === 3 && winType === 'tsumo'" class="pt-2 border-t border-gray-100">
+                <label class="block text-sm font-bold text-gray-700 mb-2">三麻のツモ損ルール（場・アプリにより異なります）</label>
+                <div class="grid grid-cols-2 gap-2">
+                    <template x-for="o in [[true,'ツモ損あり'],[false,'ツモ損なし (北家分を折半)']]" :key="String(o[0])">
+                        <button type="button" @click="tsumoLoss = o[0]" :aria-pressed="tsumoLoss === o[0]" :class="cls(tsumoLoss === o[0])" class="py-2.5 rounded-xl font-bold transition text-sm" x-text="o[1]"></button>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Han & Fu -->
+            <div x-cloak x-show="yakuman === 0" class="space-y-4 pt-2 border-t border-gray-100">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">翻数 (Han): <span class="text-mahjong-600 font-bold" x-text="han >= 13 ? '13翻以上 (数え役満)' : han + '翻'"></span></label>
+                    <div class="flex flex-wrap gap-2">
+                        <template x-for="h in [1,2,3,4,5,6,7,8,9,10,11,12,13]" :key="h">
+                            <button type="button" @click="han = h" :aria-pressed="han === h" :class="cls(han === h)" class="px-3.5 py-2 rounded-lg font-bold text-sm transition" x-text="h === 13 ? '13翻+' : h + '翻'"></button>
+                        </template>
+                    </div>
+                </div>
+
+                <div x-cloak x-show="han < 5">
+                    <label class="block text-sm font-bold text-gray-700 mb-2">符数 (Fu): <span class="text-mahjong-600 font-bold" x-text="fu + '符'"></span></label>
+                    <div class="flex flex-wrap gap-2">
+                        <template x-for="f in [20,25,30,40,50,60,70,80,90,100,110]" :key="f">
+                            <button type="button" @click="fu = f" :aria-pressed="fu === f" :class="cls(fu === f)" class="px-3.5 py-2 rounded-lg font-bold text-sm transition" x-text="f + '符'"></button>
+                        </template>
+                    </div>
+                    <p class="text-xs text-amber-600 mt-2" x-show="result.warning" x-text="result.warning"></p>
+                </div>
+            </div>
+
+            <!-- Honba / Reach sticks / Kiriage -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-gray-100">
+                <div>
+                    <label class="block text-xs font-bold text-gray-600 mb-1" for="honba">本場 (Honba)</label>
+                    <select id="honba" x-model.number="honba" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-mahjong-600 outline-none">
+                        <template x-for="i in [0,1,2,3,4,5,6,7,8,9,10]" :key="i">
+                            <option :value="i" x-text="i + '本場'"></option>
+                        </template>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-600 mb-1" for="reach">供託リーチ棒</label>
+                    <select id="reach" x-model.number="reachSticks" class="w-full bg-gray-50 border border-gray-300 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-mahjong-600 outline-none">
+                        <template x-for="i in [0,1,2,3,4,5]" :key="i">
+                            <option :value="i" x-text="i + '本 (+' + (i * 1000) + '点)'"></option>
+                        </template>
+                    </select>
+                </div>
+                <label class="flex items-center gap-2 text-xs font-bold text-gray-600 sm:pt-5">
+                    <input type="checkbox" x-model="kiriage" class="rounded"> 切り上げ満貫 (30符4翻・60符3翻)
+                </label>
+            </div>
+            <p class="text-xs text-gray-500">※ 本場：ロン +300点／ツモ 1人あたり +100点。</p>
+
+            <!-- Result -->
+            <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 text-white shadow-inner space-y-4" aria-live="polite">
+                <div class="flex justify-between items-center border-b border-gray-700 pb-3">
+                    <span class="text-xs text-gray-400 font-medium uppercase tracking-wider">計算結果プレビュー</span>
+                    <span class="bg-mahjong-600/30 text-emerald-300 text-xs px-2.5 py-1 rounded-full font-bold" x-text="result.badge"></span>
+                </div>
+                <div class="text-center py-2">
+                    <div class="text-3xl md:text-4xl font-extrabold tracking-tight text-emerald-400" x-text="result.totalText"></div>
+                    <div class="text-xs text-gray-400 mt-1" x-text="result.subText"></div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-sm bg-gray-800/60 p-3 rounded-xl border border-gray-700/50">
+                    <template x-for="item in result.details" :key="item.label">
+                        <div class="flex justify-between px-2 py-1">
+                            <span class="text-gray-400" x-text="item.label"></span>
+                            <span class="font-bold text-white" x-text="item.value"></span>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEO Articles Quick Links Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
+            <a href="guide.html" class="bg-white p-5 rounded-xl border border-gray-200 hover:border-mahjong-600 transition shadow-sm group">
+                <span class="text-xl mb-2 block">📖</span>
+                <h2 class="font-bold text-gray-900 group-hover:text-mahjong-600 transition text-sm">初心者向け：点数計算の仕組み</h2>
+                <p class="text-xs text-gray-500 mt-1">基本の数え方と満貫の条件を分かりやすく解説。</p>
+            </a>
+            <a href="fu-guide.html" class="bg-white p-5 rounded-xl border border-gray-200 hover:border-mahjong-600 transition shadow-sm group">
+                <span class="text-xl mb-2 block">🧮</span>
+                <h2 class="font-bold text-gray-900 group-hover:text-mahjong-600 transition text-sm">符計算のコツと一覧表</h2>
+                <p class="text-xs text-gray-500 mt-1">メンゼン・副露の符の数え方や例外ルール。</p>
+            </a>
+            <a href="sanma-rules.html" class="bg-white p-5 rounded-xl border border-gray-200 hover:border-mahjong-600 transition shadow-sm group">
+                <span class="text-xl mb-2 block">🀄</span>
+                <h2 class="font-bold text-gray-900 group-hover:text-mahjong-600 transition text-sm">3人打ち(三麻)ルールとツモ損</h2>
+                <p class="text-xs text-gray-500 mt-1">三麻の基本ルールと、ツモ損あり・なしの違いを点数の比較で解説。</p>
+            </a>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-12 py-8 text-center text-xs text-gray-500 space-y-3">
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 font-medium">
+            <a href="index.html" class="hover:text-mahjong-600">点数計算機</a>
+            <a href="guide.html" class="hover:text-mahjong-600">初心者ガイド</a>
+            <a href="fu-guide.html" class="hover:text-mahjong-600">符計算のコツ</a>
+            <a href="sanma-rules.html" class="hover:text-mahjong-600">三麻ルール解説</a>
+            <a href="about.html" class="hover:text-mahjong-600">当サイトについて</a>
+            <a href="privacy.html" class="hover:text-mahjong-600">プライバシーポリシー</a>
+            <a href="contact.html" class="hover:text-mahjong-600">お問い合わせ</a>
+        </div>
+        <p>© 2026 麻雀点数計算ツール All Rights Reserved.</p>
+    </footer>
+
+    <!-- Alpine.js Application Logic -->
+    <script>
+        const r100 = x => Math.ceil(x / 100) * 100;
+        const fmt = n => n.toLocaleString('ja-JP');
+
+        // 純粋関数: 状態 -> 結果（DOMに依存しない）
+        function computeScore(s) {
+            const { han, fu } = s;
+            let base, name;
+            if (s.yakuman) { base = 8000 * s.yakuman; name = s.yakuman === 2 ? 'ダブル役満' : '役満'; }
+            else if (han >= 13) { base = 8000; name = '数え役満'; }
+            else if (han >= 11) { base = 6000; name = '三倍満'; }
+            else if (han >= 8) { base = 4000; name = '倍満'; }
+            else if (han >= 6) { base = 3000; name = '跳満'; }
+            else {
+                const raw = fu * Math.pow(2, han + 2);
+                const kiri = s.kiriage && ((han === 4 && fu === 30) || (han === 3 && fu === 60));
+                if (han === 5 || raw >= 2000 || kiri) { base = 2000; name = '満貫'; }
+                else { base = raw; name = han + '翻 ' + fu + '符'; }
+            }
+
+            const three = s.playerCount === 3;
+            const split = three && !s.tsumoLoss;
+            const hb = s.honba, kyo = s.reachSticks * 1000;
+            const side = s.isOya ? '親' : '子';
+            let totalText, subText, details;
+
+            if (s.winType === 'ron') {
+                const total = r100(base * (s.isOya ? 6 : 4)) + 300 * hb + kyo;
+                totalText = fmt(total) + ' 点';
+                subText = (three ? '三麻 ' : '') + side + 'のロンアガり';
+                details = [
+                    { label: '基本点 (Base)', value: fmt(base) + ' 点' },
+                    { label: '本場・供託加算', value: fmt(300 * hb + kyo) + ' 点' }
+                ];
+            } else if (s.isOya) {
+                const each = r100(split ? base * 3 : base * 2) + 100 * hb;
+                const total = each * (three ? 2 : 3) + kyo;
+                totalText = fmt(total) + ' 点 (' + fmt(each) + (three ? ' ずつ)' : ' オール)');
+                subText = three ? '三麻 親ツモ (' + (s.tsumoLoss ? 'ツモ損あり' : 'ツモ損なし・折半') + ')' : '親のツモアガり';
+                details = [
+                    { label: '各プレイヤーの支払い', value: fmt(each) + ' 点' },
+                    { label: '供託加算', value: fmt(kyo) + ' 点' }
+                ];
+            } else {
+                const oya = r100(split ? base * 2.5 : base * 2) + 100 * hb;
+                const ko = r100(split ? base * 1.5 : base) + 100 * hb;
+                const total = oya + ko * (three ? 1 : 2) + kyo;
+                totalText = fmt(total) + ' 点 (' + fmt(oya) + ' / ' + fmt(ko) + ')';
+                subText = three ? '三麻 子ツモ (' + (s.tsumoLoss ? 'ツモ損あり' : 'ツモ損なし・折半') + ')' : '子のツモアガり (親 / 子)';
+                details = [
+                    { label: '親の支払い', value: fmt(oya) + ' 点' },
+                    { label: '子の支払い' + (three ? '' : ' (各)'), value: fmt(ko) + ' 点' }
+                ];
+            }
+
+            let warning = '';
+            if (!s.yakuman && han < 5) {
+                if (fu === 20 && (s.winType === 'ron' || han < 2)) warning = '※ 20符は平和ツモ（2翻以上）のみ成立します。';
+                else if (fu === 25 && han < 2) warning = '※ 25符は七対子（2翻以上）のみ成立します。';
+            }
+            return { totalText, subText, details, badge: name, warning };
+        }
+
+        function mahjongApp() {
+            return {
+                mobileMenuOpen: false,
+                playerCount: 4,
+                isOya: false,
+                winType: 'ron',
+                yakuman: 0,
+                han: 1,
+                fu: 30,
+                honba: 0,
+                reachSticks: 0,
+                tsumoLoss: true,
+                kiriage: false,
+                cls(on) { return on ? 'bg-mahjong-600 text-white shadow' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'; },
+                get result() { return computeScore(this); }
+            };
+        }
+    </script>
+</body>
+</html>

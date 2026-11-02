@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>当サイトについて | 麻雀点数計算ツール</title>
+    <meta name="description" content="麻雀点数計算ツールの運営目的、計算基準、開発の背景についてご紹介します。">
+    <meta name="keywords" content="麻雀点数計算ツール,運営概要,四麻,三麻,点数計算">
+    <link rel="canonical" href="https://mahjong-score.online/about.html">
+    <link rel="icon" href="favicon.ico" sizes="32x32">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#16a34a">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        mahjong: { 50: '#f0fdf4', 600: '#16a34a', 700: '#15803d' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>[x-cloak]{display:none !important}</style>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen flex flex-col justify-between" x-data="{ mobileMenuOpen: false }">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <span class="text-2xl">🀄</span>
+                <div>
+                    <p class="text-lg font-bold text-gray-900 leading-tight">麻雀点数計算ツール</p>
+                    <p class="text-xs text-gray-500">簡単・高精度シミュレーター</p>
+                </div>
+            </a>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="index.html" class="hover:text-mahjong-600 transition">点数計算機</a>
+                <a href="guide.html" class="hover:text-mahjong-600 transition">初心者向けガイド</a>
+                <a href="fu-guide.html" class="hover:text-mahjong-600 transition">符計算のコツ</a>
+                <a href="sanma-rules.html" class="hover:text-mahjong-600 transition">三麻ルール解説</a>
+            </nav>
+            <button type="button" @click="mobileMenuOpen = !mobileMenuOpen" :aria-expanded="mobileMenuOpen" aria-label="メニューを開く" class="md:hidden p-2 text-gray-600 hover:text-gray-900">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+        <div x-cloak x-show="mobileMenuOpen" @click.away="mobileMenuOpen = false" class="md:hidden bg-white border-b border-gray-200 px-4 pt-2 pb-4 space-y-2">
+            <a href="index.html" class="block py-1 text-gray-700">点数計算機</a>
+            <a href="guide.html" class="block py-1 text-gray-700">初心者向けガイド</a>
+            <a href="fu-guide.html" class="block py-1 text-gray-700">符計算のコツ</a>
+            <a href="sanma-rules.html" class="block py-1 text-gray-700">三麻ルール解説</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-6 space-y-6">
+        
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 md:p-8 space-y-6">
+            <div class="flex items-center space-x-2 text-xs text-gray-500">
+                <a href="index.html" class="hover:text-mahjong-600">ホーム</a>
+                <span>/</span>
+                <span class="text-mahjong-600 font-bold" aria-current="page">当サイトについて</span>
+            </div>
+
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-900 leading-tight">当サイトについて (About Us)</h1>
+            
+            <div class="space-y-4 text-gray-700 leading-relaxed text-sm md:text-base">
+                <p>「麻雀点数計算ツール」は、複雑で間違いやすい麻雀の点数計算や符計算を、誰でもスマートフォンやPCから直感的に素早く算出できるように開発された無料Webシミュレーターです。</p>
+                
+                <h2 class="text-xl font-bold text-gray-900 pt-3 border-t">1. 開発の背景と目的</h2>
+                <p>麻雀は非常に奥深いゲームですが、「点数計算が難しくて覚えられない」「セット麻雀で計算に時間がかかって進行が遅れる」という課題が常に存在します。当サイトは、初心者でもボタンを選ぶだけで正確な得点が分かり、対局をスムーズに楽しめる環境を提供することを目的に開設されました。</p>
+
+                <h2 class="text-xl font-bold text-gray-900 pt-3 border-t">2. 計算ルールについて</h2>
+                <p>当ツールは、一般的なリーチ麻雀の点数計算（基本点＝符×2<sup>(翻数＋2)</sup>、満貫以上の固定点数）に基づいています。麻雀のルールは場やアプリによって異なる部分があるため、次の項目は計算機で切り替え・指定できます。</p>
+                <ul class="list-disc list-inside space-y-1 pl-2">
+                    <li>4人打ち（四麻）／3人打ち（三麻）</li>
+                    <li>三麻のツモ損あり／なし（北家分を折半）</li>
+                    <li>本場（ロン＋300点、ツモは1人あたり＋100点）と供託リーチ棒</li>
+                    <li>切り上げ満貫（30符4翻・60符3翻）の有無</li>
+                    <li>数え役満・役満・ダブル役満</li>
+                </ul>
+                <p class="text-sm bg-gray-50 p-3 rounded-xl border border-gray-200">抜きドラや各場独自のローカルルールは自動では反映されません。必要に応じて翻数などを調整してご利用ください。</p>
+
+                <h2 class="text-xl font-bold text-gray-900 pt-3 border-t">3. 運営概要</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse border border-gray-200 text-sm">
+                        <tbody>
+                            <tr>
+                                <th class="border border-gray-200 p-3 bg-gray-50 font-bold text-gray-900 w-1/3">サイト名</th>
+                                <td class="border border-gray-200 p-3">麻雀点数計算ツール</td>
+                            </tr>
+                            <tr>
+                                <th class="border border-gray-200 p-3 bg-gray-50 font-bold text-gray-900">サイトURL</th>
+                                <td class="border border-gray-200 p-3">https://mahjong-score.online/</td>
+                            </tr>
+                            <tr>
+                                <th class="border border-gray-200 p-3 bg-gray-50 font-bold text-gray-900">主な機能</th>
+                                <td class="border border-gray-200 p-3">四麻・三麻のリアルタイム点数自動計算、解説記事の提供</td>
+                            </tr>
+                            <tr>
+                                <th class="border border-gray-200 p-3 bg-gray-50 font-bold text-gray-900">利用料金</th>
+                                <td class="border border-gray-200 p-3">完全無料 (会員登録不要)</td>
+                            </tr>
+                            <tr>
+                                <th class="border border-gray-200 p-3 bg-gray-50 font-bold text-gray-900">お問い合わせ</th>
+                                <td class="border border-gray-200 p-3"><a href="contact.html" class="text-mahjong-600 underline">お問い合わせページ</a>（support@mahjong-score.com）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 class="text-xl font-bold text-gray-900 pt-3 border-t">4. 計算結果の取り扱いについて</h2>
+                <p>計算結果は参考情報です。実際の対局では、その場のルールに従ってください。計算結果の誤りや不具合を見つけた場合は、選択した条件を添えて<a href="contact.html" class="text-mahjong-600 underline">お問い合わせ</a>からお知らせいただけると助かります。点数計算の仕組みは<a href="guide.html" class="text-mahjong-600 underline">初心者向けガイド</a>、<a href="fu-guide.html" class="text-mahjong-600 underline">符計算のコツ</a>、<a href="sanma-rules.html" class="text-mahjong-600 underline">三麻ルール解説</a>で解説しています。計算内容はブラウザ内で処理され、サーバーへは送信されません。</p>
+            </div>
+
+            <div class="pt-6 border-t flex justify-center">
+                <a href="index.html" class="bg-mahjong-600 hover:bg-mahjong-700 text-white font-bold px-8 py-3 rounded-xl shadow transition text-base">
+                    🧮 点数計算機を使ってみる
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-12 py-8 text-center text-xs text-gray-500 space-y-3">
+        <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 font-medium">
+            <a href="index.html" class="hover:text-mahjong-600">点数計算機</a>
+            <a href="guide.html" class="hover:text-mahjong-600">初心者ガイド</a>
+            <a href="fu-guide.html" class="hover:text-mahjong-600">符計算のコツ</a>
+            <a href="sanma-rules.html" class="hover:text-mahjong-600">三麻ルール解説</a>
+            <a href="about.html" class="hover:text-mahjong-600">当サイトについて</a>
+            <a href="privacy.html" class="hover:text-mahjong-600">プライバシーポリシー</a>
+            <a href="contact.html" class="hover:text-mahjong-600">お問い合わせ</a>
+        </div>
+        <p>© 2026 麻雀点数計算ツール All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
